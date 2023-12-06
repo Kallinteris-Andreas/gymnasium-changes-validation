@@ -385,7 +385,8 @@ class AntEnv(MujocoEnv, utils.EzPickle):
             "distance_from_origin": np.linalg.norm(self.data.qpos[0:2], ord=2),
             "x_velocity": x_velocity,
             "y_velocity": y_velocity,
-        } | reward_info
+            **reward_info
+        }
 
         if self.render_mode == "human":
             self.render()
@@ -399,6 +400,7 @@ class AntEnv(MujocoEnv, utils.EzPickle):
         ctrl_cost = self.control_cost(action)
         contact_cost = self.contact_cost
         costs = ctrl_cost + contact_cost
+
         reward = rewards - costs
 
         reward_info = {

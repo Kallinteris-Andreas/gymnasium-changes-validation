@@ -317,7 +317,8 @@ class Walker2dEnv(MujocoEnv, utils.EzPickle):
             "x_position": x_position_after,
             "z_distance_from_origin": self.data.qpos[1] - self.init_qpos[1],
             "x_velocity": x_velocity,
-        } | reward_info
+            **reward_info
+        }
 
         if self.render_mode == "human":
             self.render()
@@ -327,9 +328,9 @@ class Walker2dEnv(MujocoEnv, utils.EzPickle):
     def _get_rew(self, x_velocity: float, action):
         forward_reward = self._forward_reward_weight * x_velocity
         healthy_reward = self.healthy_reward
-        ctrl_cost = self.control_cost(action)
-
         rewards = forward_reward + healthy_reward
+
+        ctrl_cost = self.control_cost(action)
         costs = ctrl_cost
         reward = rewards - costs
 

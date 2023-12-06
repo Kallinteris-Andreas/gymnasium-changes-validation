@@ -242,7 +242,8 @@ class SwimmerEnv(MujocoEnv, utils.EzPickle):
             "distance_from_origin": np.linalg.norm(xy_position_after, ord=2),
             "x_velocity": x_velocity,
             "y_velocity": y_velocity,
-        } | reward_info
+            **reward_info
+        }
 
         if self.render_mode == "human":
             self.render()
@@ -254,6 +255,7 @@ class SwimmerEnv(MujocoEnv, utils.EzPickle):
         ctrl_cost = self.control_cost(action)
 
         reward = forward_reward - ctrl_cost
+
         reward_info = {
             "reward_forward": forward_reward,
             "reward_ctrl": -ctrl_cost,
