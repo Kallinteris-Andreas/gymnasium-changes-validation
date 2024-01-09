@@ -9,6 +9,10 @@ old_env = mujoco_old.AntEnv(render_mode="rgb_array")
 new_env = mujoco_new.AntEnv(render_mode="rgb_array")
 check_environments_match(old_env, new_env, NUM_STEPS)
 
+old_env = mujoco_old.AntEnv(render_mode="depth_array")
+new_env = mujoco_new.AntEnv(render_mode="depth_array")
+check_environments_match(old_env, new_env, NUM_STEPS)
+
 """
 #old_env = mujoco_old.HalfCheetahEnv()
 #new_env = mujoco_new.HalfCheetahEnv()
